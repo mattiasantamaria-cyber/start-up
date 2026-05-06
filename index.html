@@ -7,324 +7,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0d0d14;
-      --surface: #16161f;
-      --border: #2a2a3d;
-      --accent: #7c5cfc;
-      --accent2: #00e5c0;
-      --text: #e8e6f0;
-      --muted: #7a788a;
+      --bg: #0d0d14; --surface: #16161f; --border: #2a2a3d;
+      --accent: #7c5cfc; --accent2: #00e5c0; --text: #e8e6f0; --muted: #7a788a;
     }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ---- NOISE OVERLAY ---- */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
-    }
-
-    /* ---- GLOW BLOB ---- */
-    .blob {
-      position: fixed;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 0;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; overflow-x: hidden; }
+    .blob { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.12; pointer-events: none; z-index: 0; }
     .blob-1 { background: var(--accent); top: -150px; left: -150px; }
     .blob-2 { background: var(--accent2); bottom: -150px; right: -150px; }
-
-    /* ---- NAV ---- */
-    nav {
-      position: relative; z-index: 10;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.5rem 3rem;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-    }
-    .logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.2rem; font-weight: 700;
-      color: var(--accent2);
-      letter-spacing: 2px;
-    }
+    nav { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; border-bottom: 1px solid var(--border); }
+    .logo { font-family: 'Space Mono', monospace; font-size: 1.2rem; font-weight: 700; color: var(--accent2); letter-spacing: 2px; }
     .logo span { color: var(--accent); }
-    nav a {
-      color: var(--muted); text-decoration: none;
-      font-size: 0.85rem; letter-spacing: 1px;
-      transition: color 0.2s;
-    }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; }
     nav a:hover { color: var(--text); }
-
-    /* ---- HERO ---- */
-    .hero {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center;
-      padding: 7rem 2rem 5rem;
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(124, 92, 252, 0.15);
-      border: 1px solid rgba(124, 92, 252, 0.4);
-      color: var(--accent);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 3px;
-      padding: 0.4rem 1rem;
-      border-radius: 999px;
-      margin-bottom: 2rem;
-      animation: fadeUp 0.6s ease both;
-    }
-    h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -2px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
+    .hero { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 7rem 2rem 5rem; }
+    .badge { display: inline-block; background: rgba(124,92,252,0.15); border: 1px solid rgba(124,92,252,0.4); color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 3px; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 2rem; }
+    h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 1; letter-spacing: -2px; }
     h1 .hl { color: var(--accent2); }
-    .hero-sub {
-      margin-top: 1.5rem;
-      max-width: 520px;
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-    .hero-cta {
-      margin-top: 3rem;
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 1px;
-      text-decoration: none;
-      border: none; cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 30px rgba(124, 92, 252, 0.4);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124, 92, 252, 0.6); }
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
+    .hero-sub { margin-top: 1.5rem; max-width: 520px; color: var(--muted); font-size: 1.05rem; line-height: 1.7; }
+    .hero-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { background: var(--accent); color: #fff; padding: 0.85rem 2rem; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 0 30px rgba(124,92,252,0.4); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); padding: 0.85rem 2rem; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.85rem; letter-spacing: 1px; text-decoration: none; border: 1px solid var(--border); cursor: pointer; }
     .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
-
-    /* ---- MOCKUP TERMINAL ---- */
-    .mockup {
-      position: relative; z-index: 1;
-      margin: 0 auto 6rem;
-      max-width: 680px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-      animation: fadeUp 0.7s 0.4s ease both;
-    }
-    .mockup-bar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 0.9rem 1.2rem;
-      background: #0d0d14;
-      border-bottom: 1px solid var(--border);
-    }
+    .mockup { position: relative; z-index: 1; margin: 0 auto 6rem; max-width: 680px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
+    .mockup-bar { display: flex; align-items: center; gap: 8px; padding: 0.9rem 1.2rem; background: #0d0d14; border-bottom: 1px solid var(--border); }
     .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot-r { background: #ff5f57; }
-    .dot-y { background: #ffbd2e; }
-    .dot-g { background: #28c840; }
-    .mockup-title {
-      flex: 1; text-align: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem; color: var(--muted);
-    }
-    .mockup-body {
-      padding: 2rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      line-height: 2;
-      color: #a6adc8;
-    }
+    .dot-r { background: #ff5f57; } .dot-y { background: #ffbd2e; } .dot-g { background: #28c840; }
+    .mockup-title { flex: 1; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    .mockup-body { padding: 2rem; font-family: 'Space Mono', monospace; font-size: 0.82rem; line-height: 2; color: #a6adc8; }
     .mockup-body .line-key { color: var(--accent2); }
     .mockup-body .line-val { color: #cdd6f4; }
     .mockup-body .line-action { color: var(--accent); }
-    .mockup-body .cursor {
-      display: inline-block; width: 8px; height: 1em;
-      background: var(--accent2); vertical-align: middle;
-      animation: blink 1s step-end infinite;
-    }
-
-    /* ---- FEATURES ---- */
-    .features {
-      position: relative; z-index: 1;
-      max-width: 960px; margin: 0 auto 6rem;
-      padding: 0 2rem;
-    }
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem; letter-spacing: 4px;
-      color: var(--accent); text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .section-title {
-      font-size: 2.5rem; font-weight: 800;
-      margin-bottom: 3rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
+    .mockup-body .cursor { display: inline-block; width: 8px; height: 1em; background: var(--accent2); vertical-align: middle; animation: blink 1s step-end infinite; }
+    .features { position: relative; z-index: 1; max-width: 960px; margin: 0 auto 6rem; padding: 0 2rem; }
+    .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+    .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
     .card:hover { border-color: var(--accent); transform: translateY(-4px); }
     .card-icon { font-size: 2rem; margin-bottom: 1rem; }
     .card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
     .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
-
-    /* ---- DOWNLOAD ---- */
-    .download {
-      position: relative; z-index: 1;
-      max-width: 700px; margin: 0 auto 8rem;
-      padding: 3rem 2rem;
-      text-align: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-    }
+    .download { position: relative; z-index: 1; max-width: 700px; margin: 0 auto 8rem; padding: 3rem 2rem; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; }
     .download h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
     .download p { color: var(--muted); margin-bottom: 2rem; line-height: 1.7; }
-    .download .badge-tech {
-      display: inline-block;
-      background: rgba(0,229,192,0.1);
-      border: 1px solid rgba(0,229,192,0.3);
-      color: var(--accent2);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 999px;
-      margin: 0.25rem;
-    }
+    .badge-tech { display: inline-block; background: rgba(0,229,192,0.1); border: 1px solid rgba(0,229,192,0.3); color: var(--accent2); font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.8rem; border-radius: 999px; margin: 0.25rem; }
     .badges { margin-bottom: 2rem; }
-
-    /* ---- FOOTER ---- */
-    footer {
-      position: relative; z-index: 1;
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-family: 'Space Mono', monospace;
-    }
-
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-  
-  /* ---- MODAL ---- */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-}
-.modal-overlay.active { display: flex; }
-.modal-box {
-  background: #16161f;
-  border: 1px solid #7c5cfc;
-  border-radius: 16px;
-  padding: 2rem;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-}
-.modal-box h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-.modal-box p { color: #7a788a; line-height: 1.7; margin-bottom: 1.5rem; }
-.modal-close {
-  background: #7c5cfc;
-  color: white;
-  border: none;
-  padding: 0.7rem 2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-}/style>
+    footer { position: relative; z-index: 1; text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; font-family: 'Space Mono', monospace; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: #16161f; border: 1px solid #7c5cfc; border-radius: 16px; padding: 2rem; max-width: 400px; width: 90%; text-align: center; }
+    .modal-box h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .modal-box p { color: #7a788a; line-height: 1.7; margin-bottom: 1.5rem; }
+    .modal-close { background: #7c5cfc; color: white; border: none; padding: 0.7rem 2rem; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+  </style>
 </head>
 <body>
-
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-
-  <!-- NAV -->
   <nav>
     <div class="logo">Pass<span>Vault</span></div>
     <a href="#telecharger">Télécharger</a>
   </nav>
-
-  <!-- HERO -->
   <section class="hero">
     <div class="badge">PROJET START UP — SNT</div>
     <h1>Vos mots de passe,<br><span class="hl">enfin en sécurité.</span></h1>
-    <p class="hero-sub">
-      PassVault est une application Python légère qui stocke vos identifiants localement,
-      sans cloud, sans abonnement, sans compromis.
-    </p>
+    <p class="hero-sub">PassVault est une application Python légère qui stocke vos identifiants localement, sans cloud, sans abonnement, sans compromis.</p>
     <div class="hero-cta">
       <a href="#telecharger" class="btn-primary">⬇ Télécharger</a>
       <a href="#fonctionnalites" class="btn-outline">Voir les fonctionnalités</a>
     </div>
   </section>
-
-  <!-- TERMINAL MOCKUP -->
   <div class="mockup">
     <div class="mockup-bar">
-      <div class="dot dot-r"></div>
-      <div class="dot dot-y"></div>
-      <div class="dot dot-g"></div>
+      <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
       <div class="mockup-title">gestionnaire_mots_de_passe.py</div>
     </div>
     <div class="mockup-body">
@@ -335,72 +93,18 @@
       <div style="margin-top:1rem">Sauvegarde : <span class="line-val">passwords.json</span> <span class="cursor"></span></div>
     </div>
   </div>
-
-  <!-- FEATURES -->
   <section class="features" id="fonctionnalites">
     <div class="section-label">Fonctionnalités</div>
     <div class="section-title">Tout ce dont vous avez besoin.</div>
     <div class="grid">
-  <div class="card" onclick="openModal('stockage')">
-    <div class="card-icon">🔒</div>
-    <h3>Stockage local</h3>
-    <p>Vos données ne quittent jamais votre ordinateur.</p>
-  </div>
-  <div class="card" onclick="openModal('affichage')">
-    <div class="card-icon">👁</div>
-    <h3>Affichage masqué</h3>
-    <p>Révélez vos mots de passe d'un clic.</p>
-  </div>
-  <div class="card" onclick="openModal('ajout')">
-    <div class="card-icon">➕</div>
-    <h3>Ajout rapide</h3>
-    <p>Saisissez un service en quelques secondes.</p>
-  </div>
-  <div class="card" onclick="openModal('suppression')">
-    <div class="card-icon">🗑</div>
-    <h3>Suppression sécurisée</h3>
-    <p>Chaque suppression est confirmée.</p>
-  </div>
-  <div class="card" onclick="openModal('python')">
-    <div class="card-icon">🐍</div>
-    <h3>100% Python</h3>
-    <p>Développé avec Tkinter. Aucune dépendance externe.</p>
-  </div>
-  <div class="card" onclick="openModal('interface')">
-    <div class="card-icon">💻</div>
-    <h3>Interface intuitive</h3>
-    <p>Design sombre et épuré.</p>
-  </div>
-</div>
-      <div class="card">
-        <div class="card-icon">👁</div>
-        <h3>Affichage masqué</h3>
-        <p>Révélez vos mots de passe d'un clic grâce au bouton œil intégré.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">➕</div>
-        <h3>Ajout rapide</h3>
-        <p>Saisissez un service, un identifiant et un mot de passe en quelques secondes.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🗑</div>
-        <h3>Suppression sécurisée</h3>
-        <p>Chaque suppression est confirmée pour éviter les erreurs.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🐍</div>
-        <h3>100% Python</h3>
-        <p>Développé avec Tkinter et Python 3.10+. Aucune dépendance externe.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">💻</div>
-        <h3>Interface intuitive</h3>
-        <p>Design sombre et épuré, adapté à une utilisation quotidienne.</p>
-      </div>
+      <div class="card" onclick="openModal('stockage')"><div class="card-icon">🔒</div><h3>Stockage local</h3><p>Vos données ne quittent jamais votre ordinateur.</p></div>
+      <div class="card" onclick="openModal('affichage')"><div class="card-icon">👁</div><h3>Affichage masqué</h3><p>Révélez vos mots de passe d'un clic.</p></div>
+      <div class="card" onclick="openModal('ajout')"><div class="card-icon">➕</div><h3>Ajout rapide</h3><p>Saisissez un service en quelques secondes.</p></div>
+      <div class="card" onclick="openModal('suppression')"><div class="card-icon">🗑</div><h3>Suppression sécurisée</h3><p>Chaque suppression est confirmée.</p></div>
+      <div class="card" onclick="openModal('python')"><div class="card-icon">🐍</div><h3>100% Python</h3><p>Développé avec Tkinter. Aucune dépendance externe.</p></div>
+      <div class="card" onclick="openModal('interface')"><div class="card-icon">💻</div><h3>Interface intuitive</h3><p>Design sombre et épuré.</p></div>
     </div>
   </section>
-
-  <!-- DOWNLOAD -->
   <section class="download" id="telecharger">
     <h2>Télécharger PassVault</h2>
     <p>Gratuit, open-source, et prêt à l'emploi.<br>Lancez le fichier .py dans Thonny ou Python.</p>
@@ -412,71 +116,33 @@
       <span class="badge-tech">Open Source</span>
     </div>
     <a href="gestionnaire_mots_de_passe.py" download class="btn-outline">⬇ Télécharger le .py</a>
-<a href="PassVault.exe" download class="btn-primary">⬇ Télécharger le .exe</a>
+    &nbsp;
+    <a href="PassVault.exe" download class="btn-primary">⬇ Télécharger le .exe</a>
   </section>
+  <footer>PassVault — Projet Start Up SNT &nbsp;|&nbsp; Fait avec 🐍 Python &amp; ❤️</footer>
 
-  <!-- FOOTER -->
-  <footer>
-    PassVault — Projet Start Up SNT &nbsp;|&nbsp; Fait avec 🐍 Python &amp; ❤️
-  
-  <!-- MODALES -->
-<div class="modal-overlay" id="modal-stockage">
-  <div class="modal-box">
-    <div style="font-size:2rem">🔒</div>
-    <h3>Stockage local</h3>
-    <p>Vos données sont sauvegardées uniquement sur votre ordinateur dans un fichier passwords.json. Aucune connexion internet requise, aucun serveur externe.</p>
-    <button class="modal-close" onclick="closeModal('stockage')">Fermer</button>
+  <div class="modal-overlay" id="modal-stockage">
+    <div class="modal-box"><div style="font-size:2rem">🔒</div><h3>Stockage local</h3><p>Vos données sont sauvegardées uniquement sur votre ordinateur dans un fichier passwords.json. Aucune connexion internet requise.</p><button class="modal-close" onclick="closeModal('stockage')">Fermer</button></div>
   </div>
-</div>
-<div class="modal-overlay" id="modal-affichage">
-  <div class="modal-box">
-    <div style="font-size:2rem">👁</div>
-    <h3>Affichage masqué</h3>
-    <p>Le mot de passe est masqué par défaut. Cliquez sur le bouton œil pour le révéler ou le cacher à nouveau.</p>
-    <button class="modal-close" onclick="closeModal('affichage')">Fermer</button>
+  <div class="modal-overlay" id="modal-affichage">
+    <div class="modal-box"><div style="font-size:2rem">👁</div><h3>Affichage masqué</h3><p>Le mot de passe est masqué par défaut. Cliquez sur le bouton œil pour le révéler ou le cacher à nouveau.</p><button class="modal-close" onclick="closeModal('affichage')">Fermer</button></div>
   </div>
-</div>
-<div class="modal-overlay" id="modal-ajout">
-  <div class="modal-box">
-    <div style="font-size:2rem">➕</div>
-    <h3>Ajout rapide</h3>
-    <p>Remplissez les champs Service, Identifiant et Mot de passe puis cliquez sur Ajouter. L'entrée est sauvegardée instantanément.</p>
-    <button class="modal-close" onclick="closeModal('ajout')">Fermer</button>
+  <div class="modal-overlay" id="modal-ajout">
+    <div class="modal-box"><div style="font-size:2rem">➕</div><h3>Ajout rapide</h3><p>Remplissez les champs Service, Identifiant et Mot de passe puis cliquez sur Ajouter. L'entrée est sauvegardée instantanément.</p><button class="modal-close" onclick="closeModal('ajout')">Fermer</button></div>
   </div>
-</div>
-<div class="modal-overlay" id="modal-suppression">
-  <div class="modal-box">
-    <div style="font-size:2rem">🗑</div>
-    <h3>Suppression sécurisée</h3>
-    <p>Sélectionnez une entrée dans la liste puis cliquez sur Supprimer. Une confirmation vous sera demandée avant la suppression définitive.</p>
-    <button class="modal-close" onclick="closeModal('suppression')">Fermer</button>
+  <div class="modal-overlay" id="modal-suppression">
+    <div class="modal-box"><div style="font-size:2rem">🗑</div><h3>Suppression sécurisée</h3><p>Sélectionnez une entrée dans la liste puis cliquez sur Supprimer. Une confirmation vous sera demandée avant la suppression définitive.</p><button class="modal-close" onclick="closeModal('suppression')">Fermer</button></div>
   </div>
-</div>
-<div class="modal-overlay" id="modal-python">
-  <div class="modal-box">
-    <div style="font-size:2rem">🐍</div>
-    <h3>100% Python</h3>
-    <p>Développé avec Python 3.10+ et Tkinter. Aucune bibliothèque externe requise, fonctionne sur tout ordinateur avec Python installé.</p>
-    <button class="modal-close" onclick="closeModal('python')">Fermer</button>
+  <div class="modal-overlay" id="modal-python">
+    <div class="modal-box"><div style="font-size:2rem">🐍</div><h3>100% Python</h3><p>Développé avec Python 3.10+ et Tkinter. Aucune bibliothèque externe requise.</p><button class="modal-close" onclick="closeModal('python')">Fermer</button></div>
   </div>
-</div>
-<div class="modal-overlay" id="modal-interface">
-  <div class="modal-box">
-    <div style="font-size:2rem">💻</div>
-    <h3>Interface intuitive</h3>
-    <p>Design sombre inspiré du thème Catppuccin. Interface épurée et agréable pour une utilisation quotidienne.</p>
-    <button class="modal-close" onclick="closeModal('interface')">Fermer</button>
+  <div class="modal-overlay" id="modal-interface">
+    <div class="modal-box"><div style="font-size:2rem">💻</div><h3>Interface intuitive</h3><p>Design sombre inspiré du thème Catppuccin. Interface épurée pour une utilisation quotidienne.</p><button class="modal-close" onclick="closeModal('interface')">Fermer</button></div>
   </div>
-</div>
 
-<script>
-function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('active');
-}
-function closeModal(id) {
-  document.getElementById('modal-' + id).classList.remove('active');
-}
-</script></footer>
-
+  <script>
+    function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); }
+    function closeModal(id) { document.getElementById('modal-' + id).classList.remove('active'); }
+  </script>
 </body>
 </html>
