@@ -261,7 +261,38 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
-  </style>
+  
+  /* ---- MODAL ---- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  background: #16161f;
+  border: 1px solid #7c5cfc;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+.modal-box h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.modal-box p { color: #7a788a; line-height: 1.7; margin-bottom: 1.5rem; }
+.modal-close {
+  background: #7c5cfc;
+  color: white;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}/style>
 </head>
 <body>
 
