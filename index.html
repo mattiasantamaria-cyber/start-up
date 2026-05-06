@@ -418,7 +418,65 @@
   <!-- FOOTER -->
   <footer>
     PassVault — Projet Start Up SNT &nbsp;|&nbsp; Fait avec 🐍 Python &amp; ❤️
-  </footer>
+  
+  <!-- MODALES -->
+<div class="modal-overlay" id="modal-stockage">
+  <div class="modal-box">
+    <div style="font-size:2rem">🔒</div>
+    <h3>Stockage local</h3>
+    <p>Vos données sont sauvegardées uniquement sur votre ordinateur dans un fichier passwords.json. Aucune connexion internet requise, aucun serveur externe.</p>
+    <button class="modal-close" onclick="closeModal('stockage')">Fermer</button>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-affichage">
+  <div class="modal-box">
+    <div style="font-size:2rem">👁</div>
+    <h3>Affichage masqué</h3>
+    <p>Le mot de passe est masqué par défaut. Cliquez sur le bouton œil pour le révéler ou le cacher à nouveau.</p>
+    <button class="modal-close" onclick="closeModal('affichage')">Fermer</button>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-ajout">
+  <div class="modal-box">
+    <div style="font-size:2rem">➕</div>
+    <h3>Ajout rapide</h3>
+    <p>Remplissez les champs Service, Identifiant et Mot de passe puis cliquez sur Ajouter. L'entrée est sauvegardée instantanément.</p>
+    <button class="modal-close" onclick="closeModal('ajout')">Fermer</button>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-suppression">
+  <div class="modal-box">
+    <div style="font-size:2rem">🗑</div>
+    <h3>Suppression sécurisée</h3>
+    <p>Sélectionnez une entrée dans la liste puis cliquez sur Supprimer. Une confirmation vous sera demandée avant la suppression définitive.</p>
+    <button class="modal-close" onclick="closeModal('suppression')">Fermer</button>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-python">
+  <div class="modal-box">
+    <div style="font-size:2rem">🐍</div>
+    <h3>100% Python</h3>
+    <p>Développé avec Python 3.10+ et Tkinter. Aucune bibliothèque externe requise, fonctionne sur tout ordinateur avec Python installé.</p>
+    <button class="modal-close" onclick="closeModal('python')">Fermer</button>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-interface">
+  <div class="modal-box">
+    <div style="font-size:2rem">💻</div>
+    <h3>Interface intuitive</h3>
+    <p>Design sombre inspiré du thème Catppuccin. Interface épurée et agréable pour une utilisation quotidienne.</p>
+    <button class="modal-close" onclick="closeModal('interface')">Fermer</button>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('active');
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('active');
+}
+</script></footer>
 
 </body>
 </html>
